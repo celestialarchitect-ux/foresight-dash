@@ -171,6 +171,22 @@ body.flash-loss { animation: lossFlash 0.45s ease-out, flicker 4s infinite; }
 }
 .btn-fs:active { transform: translate(2px,2px); box-shadow: none; }
 
+/* OVERRIDE BUTTONS */
+.obtn {
+  font-family: var(--font);
+  font-size: 0.6rem;
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 2px 2px 0 #222;
+  transition: all 0.1s;
+}
+.obtn:active { transform: translate(2px,2px); box-shadow: none; }
+.obtn-long { background: var(--green); color: #000; }
+.obtn-short { background: var(--red); color: #fff; }
+.obtn-close { background: #333; color: var(--text); border-color: var(--red); }
+
 /* ============================== */
 /*           CARD                 */
 /* ============================== */
@@ -488,6 +504,20 @@ body { -webkit-user-select: none; user-select: none; }
 
   </div>
 
+  <!-- ========== OVERRIDE PANEL ========== -->
+  <div class="card" style="margin:0 8px 10px">
+    <div class="card-header">SIGNAL OVERRIDE <span style="font-size:0.5rem;color:#888">MANUAL CONTROL</span></div>
+    <div class="card-body" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+      <button class="obtn obtn-long" onclick="override('open','BTC','long')">LONG BTC</button>
+      <button class="obtn obtn-short" onclick="override('open','BTC','short')">SHORT BTC</button>
+      <button class="obtn obtn-long" onclick="override('open','ETH','long')">LONG ETH</button>
+      <button class="obtn obtn-short" onclick="override('open','ETH','short')">SHORT ETH</button>
+      <button class="obtn obtn-long" onclick="override('open','SOL','long')">LONG SOL</button>
+      <button class="obtn obtn-short" onclick="override('open','SOL','short')">SHORT SOL</button>
+      <button class="obtn obtn-close" onclick="override('close_all','','')">CLOSE ALL</button>
+    </div>
+  </div>
+
   <!-- ========== STATUS BAR ========== -->
   <div class="statusbar">
     <div class="sb-item"><span id="rageStatus" class="rage-off">RAGE:OFF</span></div>
@@ -780,6 +810,26 @@ async function poll() {
 
 poll();
 setInterval(poll, POLL_MS);
+
+// --- OVERRIDE ---
+async function override(action, coin, side) {
+  try {
+    const r = await fetch(API_BASE + '/api/override', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action, coin, side})
+    });
+    const d = await r.json();
+    if (d.status === 'ok') {
+      document.body.classList.remove('flash-trade');
+      void document.body.offsetWidth;
+      document.body.classList.add('flash-trade');
+      setTimeout(() => document.body.classList.remove('flash-trade'), 400);
+    }
+  } catch(e) {
+    console.error('Override failed:', e);
+  }
+}
 </script>
 </body>
 </html>
