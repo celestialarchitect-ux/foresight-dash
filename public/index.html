@@ -13,15 +13,15 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #f0f0f0;
-  --bg-card: #fafafa;
-  --bg-dark: #e0e0e0;
-  --text: #111;
-  --text-dim: #555;
-  --border: #111;
-  --green: #00aa00;
-  --red: #cc0000;
-  --shadow: 4px 4px 0px #ccc;
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-dark: #1a1a1a;
+  --text: #e8e8e8;
+  --text-dim: #888;
+  --border: #e8e8e8;
+  --green: #00ff66;
+  --red: #ff3344;
+  --shadow: 4px 4px 0px #222;
   --font: 'Press Start 2P', monospace;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -52,8 +52,8 @@ body::after {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0,0,0,0.03) 2px,
-    rgba(0,0,0,0.03) 4px
+    rgba(255,255,255,0.02) 2px,
+    rgba(255,255,255,0.02) 4px
   );
   pointer-events: none;
   z-index: 9999;
@@ -83,7 +83,7 @@ body { animation: flicker 4s infinite; }
 /* === FLASH EFFECTS === */
 @keyframes tradeFlash {
   0% { box-shadow: inset 0 0 0 0 transparent; }
-  15% { box-shadow: inset 0 0 80px 20px rgba(255,255,255,0.6); }
+  15% { box-shadow: inset 0 0 80px 20px rgba(255,255,255,0.15); }
   100% { box-shadow: inset 0 0 0 0 transparent; }
 }
 @keyframes profitFlash {
@@ -112,7 +112,7 @@ body.flash-loss { animation: lossFlash 0.45s ease-out, flicker 4s infinite; }
   pointer-events: none;
   z-index: 9998;
   animation: floatUp 1.3s ease-out forwards;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.08);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
 }
 
 /* === BLINK === */
@@ -120,11 +120,11 @@ body.flash-loss { animation: lossFlash 0.45s ease-out, flicker 4s infinite; }
 .blink { animation: blink 1s steps(1) infinite; }
 
 /* === PIXEL BORDER PULSE === */
-@keyframes borderPulse { 0%,100%{border-color:#111}50%{border-color:#888} }
+@keyframes borderPulse { 0%,100%{border-color:#e8e8e8}50%{border-color:#555} }
 .active-card { animation: borderPulse 1.8s steps(2) infinite; }
 
 /* === PRICE HIGHLIGHT === */
-@keyframes priceHL { 0%{background:rgba(0,0,0,0.1)}100%{background:transparent} }
+@keyframes priceHL { 0%{background:rgba(255,255,255,0.1)}100%{background:transparent} }
 .price-hl { animation: priceHL 0.5s ease-out; }
 
 /* === CONTAINER === */
