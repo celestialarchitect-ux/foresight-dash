@@ -51,10 +51,16 @@ body::after{
 .conn-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
 .conn-dot.live{background:var(--green);box-shadow:0 0 8px var(--green)}
 .conn-dot.dead{background:var(--red);box-shadow:0 0 8px var(--red)}
-#header-stats{display:flex;gap:24px;align-items:center}
-.hstat{display:flex;flex-direction:column;align-items:flex-end}
-.hstat-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim)}
-.hstat-val{font-family:var(--font-mono);font-size:20px;font-weight:700;transition:color .4s}
+#header-stats{display:flex;gap:30px;align-items:center}
+.hstat{display:flex;flex-direction:column;align-items:center;padding:8px 16px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.06);min-width:100px}
+.hstat-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--dim);margin-bottom:4px}
+.hstat-val{font-family:var(--font-mono);font-size:28px;font-weight:900;transition:color .4s;line-height:1.1}
+#fs-btn{
+  background:none;border:1px solid rgba(255,255,255,0.15);color:var(--dim);
+  font-size:10px;padding:6px 12px;cursor:pointer;border-radius:6px;font-family:var(--font-ui);
+  letter-spacing:1px;transition:all .2s;
+}
+#fs-btn:hover{border-color:var(--axiom);color:var(--axiom)}
 .pos{color:var(--green)}.neg{color:var(--red)}.neut{color:var(--white)}
 
 /* ── MAIN LAYOUT ── */
@@ -98,7 +104,7 @@ body::after{
 
 /* ── CENTER: VIZ + METRICS ── */
 #center{display:flex;flex-direction:column;gap:10px;min-height:0}
-#viz-wrap{flex:1;position:relative;border-radius:12px;overflow:hidden;min-height:0}
+#viz-wrap{flex:0 0 220px;position:relative;border-radius:12px;overflow:hidden;min-height:180px;max-height:250px}
 #viz-canvas{width:100%;height:100%;display:block}
 #viz-label{
   position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
@@ -163,15 +169,17 @@ body::after{
 
 /* TABLET (iPad) */
 @media(max-width:1024px){
-  #main{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px;padding:8px}
-  #bots{grid-column:1/-1;flex-direction:row;overflow-x:auto;padding-bottom:4px}
-  .bot-card{min-width:240px;flex-shrink:0}
-  #center{grid-column:1/-1}
-  #feed{grid-column:1/-1;max-height:250px}
+  #main{grid-template-columns:1fr;grid-template-rows:auto;gap:8px;padding:8px}
+  #bots{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .bot-card{min-width:260px;flex-shrink:0}
+  #center{grid-column:1}
+  #viz-wrap{flex:0 0 180px;max-height:200px}
+  #feed{max-height:280px}
   #metrics-bar{grid-template-columns:repeat(3,1fr)}
-  #header{flex-wrap:wrap;gap:8px;padding:8px 12px}
-  #header-stats{gap:14px}
-  .hstat-val{font-size:14px}
+  #header{flex-wrap:wrap;gap:8px;padding:8px 16px}
+  #header-stats{gap:12px;flex-wrap:wrap;justify-content:center}
+  .hstat{min-width:90px;padding:6px 12px}
+  .hstat-val{font-size:24px}
   #alerts-bar{flex-wrap:wrap;padding:4px 12px}
   html,body{overflow:auto}
 }
@@ -180,25 +188,29 @@ body::after{
 @media(max-width:600px){
   #main{grid-template-columns:1fr;gap:6px;padding:6px}
   #header{flex-direction:column;align-items:stretch;gap:6px;padding:8px 10px}
-  #logo span{font-size:15px}
-  #header>div:nth-child(2){display:flex;justify-content:space-between}
-  #header-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%}
-  .hstat{align-items:center}
-  .hstat-val{font-size:13px}
-  #bots{flex-direction:column;overflow-x:visible;grid-column:1}
+  #logo span{font-size:16px}
+  #header>div:nth-child(2){display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  #hero-stats{padding:8px 10px}
+  #header-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%}
+  .hstat{align-items:center;padding:10px 8px;min-width:unset}
+  .hstat-val{font-size:22px}
+  .hstat-label{font-size:9px}
+  #bots{flex-direction:column;overflow-x:visible}
   .bot-card{min-width:unset}
-  .bot-metrics{grid-template-columns:1fr 1fr 1fr 1fr;gap:2px 8px}
-  #viz-wrap{min-height:200px}
-  #center{grid-column:1}
-  #feed{grid-column:1;max-height:300px}
+  .bot-name{font-size:16px}
+  .bm-val{font-size:14px}
+  .bot-metrics{grid-template-columns:1fr 1fr;gap:4px 12px}
+  #viz-wrap{flex:0 0 150px;min-height:150px;max-height:180px}
+  #feed{max-height:300px}
   #metrics-bar{grid-template-columns:repeat(2,1fr);gap:4px}
-  .metric-card{padding:6px 8px}
-  .mc-val{font-size:13px}
+  .metric-card{padding:8px}
+  .mc-val{font-size:15px}
   #alerts-bar{flex-wrap:wrap;gap:4px;padding:4px 8px}
-  .alert-pill{font-size:8px;padding:4px 8px}
-  .feed-item{font-size:10px;padding:6px 8px}
+  .alert-pill{font-size:9px;padding:5px 10px}
+  .feed-item{font-size:11px;padding:8px 10px}
   html,body{overflow:auto}
   body::before{background-size:32px 32px}
+  #fs-btn{display:none}  /* iOS handles fullscreen differently */
 }
 
 /* Safe area for notched iPhones */
@@ -227,11 +239,16 @@ body::after{
     </svg>
     <span>FORESIGHT</span>
   </div>
-  <div style="display:flex;align-items:center;gap:16px">
-    <span id="conn"><span class="conn-dot dead" id="conn-dot"></span><span id="conn-text" style="font-size:10px;color:var(--dim)">OFFLINE</span></span>
-    <span id="platform-badge" style="font-size:9px;padding:3px 10px;border-radius:10px;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.2);color:var(--axiom);letter-spacing:1px">--</span>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span id="conn"><span class="conn-dot dead" id="conn-dot"></span><span id="conn-text" style="font-size:11px;color:var(--dim)">OFFLINE</span></span>
+    <span id="platform-badge" style="font-size:10px;padding:4px 12px;border-radius:10px;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.2);color:var(--axiom);letter-spacing:1px">--</span>
     <span id="clock"></span>
+    <button id="fs-btn" onclick="document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()">FULLSCREEN</button>
   </div>
+</div>
+
+<!-- HERO STATS -->
+<div id="hero-stats" style="display:flex;justify-content:center;gap:20px;padding:12px 20px;position:relative;z-index:1;flex-wrap:wrap">
   <div id="header-stats">
     <div class="hstat"><span class="hstat-label">Account</span><span class="hstat-val neut" id="h-acct">--</span></div>
     <div class="hstat"><span class="hstat-label">Total P&amp;L</span><span class="hstat-val neut" id="h-pnl">--</span></div>
